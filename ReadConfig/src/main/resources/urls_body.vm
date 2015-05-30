@@ -1,0 +1,14 @@
+#foreach($element in $models)#if($!element)#if($element.father)#set($fname=$element.name)#end#end#end
+#foreach($element in $models)#if($!element)#if($element.father) ## 父元素
+   url(r'^add_${element.name}$', '${project}.${element.name}_view.add_${element.name}'),
+    url(r'^del_${element.name}$', '${project}.${element.name}_view.del_${element.name}'),
+    url(r'^update_${element.name}$', '${project}.${element.name}_view.update_${element.name}'),
+    url(r'^get_${element.name}s$','${project}.${element.name}_view.get_${element.name}s'),#else    url(r'^add_${fname}_${element.name}$', '${project}.${fname}_view.add_${fname}_${element.name}'),
+    url(r'^del_${fname}_${element.name}$', '${project}.${fname}_view.del_${fname}_${element.name}'),
+    url(r'^update_${fname}_${element.name}$', '${project}.${fname}_view.update_${fname}_${element.name}'),
+    url(r'^get_${fname}_${element.name}s$', '${project}.${fname}_view.get_${fname}_${element.name}s'),
+
+    #end
+    #end
+
+#end

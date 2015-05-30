@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FlashMan.iml" filepath="$PROJECT_DIR$/FlashMan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Generator/Generator.iml" filepath="$PROJECT_DIR$/Generator/Generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ReadConfig/ReadConfig.iml" filepath="$PROJECT_DIR$/ReadConfig/ReadConfig.iml" />
+    </modules>
+  </component>
+</project>

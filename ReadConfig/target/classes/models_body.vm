@@ -1,0 +1,12 @@
+#foreach($element in $models)#if($!element)#if($element.father) ## 父元素
+
+class ${element.name}(models.Model):
+    #foreach($attr in $element.attrs)
+$attr = models.CharField(max_length=400)
+    #end
+#else
+${element.name} = models.ManyToManyField(${element.name})
+
+#end
+#end
+#end

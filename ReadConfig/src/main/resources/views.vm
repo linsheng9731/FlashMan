@@ -1,0 +1,116 @@
+# coding:utf8 #
+__author__ = 'damon_lin'
+
+from ${project}.models import #foreach($element in $models)$!{element.name},#end
+
+from utils import serializer
+from django.http import HttpResponse
+import json
+
+#foreach($element in $models)
+#if($!element)#if($element.father)
+    #set($fname=$element.name)
+    #end
+    #end
+    #end
+
+#foreach($element in $models)
+#if($!element)#if($element.father) ## 父元素
+
+## 增加方法
+# add $!{element.name}
+def add_$!{element.name}(request):
+    post = request.POST
+    phone = post['phonenum']
+
+   $!{element.name} = $!{element.name}()
+   $!{element.name}.save()
+   
+    return HttpResponse(json.dumps({'status':'ok'}))
+
+## 删除方法
+# delete $!{element.name}
+def del_$!{element.name}(request):
+    post = request.POST
+    id = post['id']
+    $!{element.name}s = $!{element.name}.objects.filter(id = id)
+    if $!{element.name}s[0] == None:
+    	return HttpResponse('not find !')
+    $!{element.name}s[0].delete()
+    return HttpResponse(json.dumps({'status':'ok'}))
+
+## 更新方法
+def update_$!{element.name}(request):
+    post = request.POST
+    phone = post['phonenum']
+    id = post['id']
+    ${element.name}s = $!{element.name}.objects.filter(id=id)
+    ${element.name} = ${element.name}s[0]
+    # update
+    $!{element.name} = $!{element.name}()
+    $!{element.name}.save()
+
+    return HttpResponse(json.dumps({'status':'ok'}))
+
+
+## 查找方法 返回序列化对象
+# get $!{element.name}
+def get_$!{element.name}(request):
+    post = request.POST
+    id = post['id']
+    ${element.name}s = $!{element.name}.objects.filter(id=id)
+    ${element.name} = ${element.name}s[0]
+    atrs=[]
+    #foreach($item in $element.attrs)atrs.append('${item}')
+    #end
+    json_obj = serializer.ser($!{element.name},atrs)
+    return HttpResponse(json_obj)
+
+#else ## 外键 子元素
+
+## 添加关联
+def add_${fname}_$!{element.name}(request):
+    post = request.POST
+    id = post['id']
+    $!{element.name}id=post['$!{element.name}id']
+    pwd = post['pwd'] # 验证预留
+    ${fname}s = ${fname}.objects.filter(id = id)
+    if ${fname}s[0] == None:
+        return HttpResponse('not find !')
+    $!{element.name} = $!{element.name}.objects.get(id=$!{element.name}id)
+    ${fname}s[0].$!{element.name}s.add($!{element.name})
+    return HttpResponse(json.dumps({'status':'ok'}))
+
+
+## 取消关联
+def del_${fname}_$!{element.name}(request):
+    post = request.POST
+    id = post['id']
+    $!{element.name}id=post['$!{element.name}id']
+    pwd = post['pwd'] # 验证预留
+    ${fname}s = ${fname}.objects.filter(id = id)
+    if ${fname}s[0] == None:
+        return HttpResponse('not find !')
+    $!{element.name} = $!{element.name}.objects.get(id=$!{element.name}id)
+    ${fname}s[0].$!{element.name}s.remove($!{element.name})
+    return HttpResponse(json.dumps({'status':'ok'}))
+
+## 查找方法 返回序列化对象
+# get ${fname} $!{element.name}
+def get_${fname}_$!{element.name}s(request):
+	post = request.POST
+	id = post['id']
+    ${element.name}s = $!{element.name}.objects.filter(id=id)
+    ${element.name} = ${element.name}s[0]
+	atrs=[]
+    #foreach($item in $element.attrs)atrs.append('${item}')
+    #end
+	json_obj = serializer.ser($!{element.name},atrs)
+	return HttpResponse(json_obj)
+
+
+
+    #end
+    #end
+
+#end
