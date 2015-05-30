@@ -1,0 +1,50 @@
+<project name="ECommunity">
+
+<model name ="user">
+    <attr>sex</attr>
+    <attr>age</attr>
+    <attr>name</attr>
+    <model name="article">
+        <attr>user_title</attr>
+        <attr>user_body</attr>
+    </model>
+    <model name="channel">
+        <attr>user_title</attr>
+        <attr>user_desc</attr>
+    </model>
+    <model name="collect">
+        <attr>desc</attr>
+        <attr>image</attr>
+    </model>
+</model>
+
+<model name ="article">
+    <attr>title</attr>
+    <attr>body</attr>
+    <attr>name</attr>
+    <model name="author">
+        <attr>article_name</attr>
+        <attr>article_gender</attr>
+    </model>
+   
+</model>
+
+<model name ="channel">
+    <attr>title</attr>
+    <attr>desc</attr>
+    <attr>image</attr>
+    <model name="article">
+        <attr>channel_title</attr>
+        <attr>channel_body</attr>
+    </model>
+</model>
+   
+<model name ="collect">
+    <attr>title</attr>
+    <attr>desc</attr>
+    <attr>image</attr>
+   
+</model>
+
+
+</project>
